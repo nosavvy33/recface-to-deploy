@@ -1,0 +1,35 @@
+h1{
+	text-align: center;
+	color: #6666FF;
+}
+
+
+.centered {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  max-width: 60vw;
+}
+
+.bottomed {
+    position:absolute;
+    top:98vh;
+    left: 60vw;
+    transform:translateY(-100%);
+    width:35%;
+}
+
+.btn-out{
+  position: fixed;
+  top: 10%;
+  left: 80%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  }
+
+  .foto-alu{
+    max-height: 150px;
+    max-width: 150px;
+  }
