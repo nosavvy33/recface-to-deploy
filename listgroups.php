@@ -48,6 +48,8 @@
     </div>
 
 <script type="text/javascript">
+	const key = "11131afade8d4760865c7db0715c87ee";
+
     var t = $('#example').DataTable({
     	"language":{
     		 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
@@ -76,7 +78,7 @@
             url: "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups?" + $.param(params),
             beforeSend: function(xhrObj){
                 // Request headers
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "GET",
             // Request body
@@ -104,7 +106,7 @@
             url: "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/"+grupo+"?" + $.param(params),
             beforeSend: function(xhrObj){
                 // Request headers
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "DELETE",
             async: false

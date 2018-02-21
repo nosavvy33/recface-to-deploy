@@ -24,14 +24,14 @@ $aula = $_POST["aula"];
 $nombre = $_POST["nombre"];
 $paterno = $_POST["paterno"];
 $materno = $_POST["materno"];
-$password = $_POST["password"];
+
 $dni = $_POST["dni"];
 $ms_personid = $_POST["mspersonid"];
 
 
 $con = Conexion::getConexion();
 
-        $query = $con->prepare("insert into alumno (nombre, paterno, materno, dni, password, id_azure_persona, aula_idaula) values (?,?,?,?,?,?,(select idaula from aula where nombre = ?))");
-       	$query->execute([$nombre, $paterno, $materno, $dni, $password, $ms_personid, $aula]);
+        $query = $con->prepare("insert into alumno (nombre, paterno, materno, dni,  id_azure_persona, aula_idaula) values (?,?,?,?,?,(select idaula from aula where nombre = ?))");
+       	$query->execute([$nombre, $paterno, $materno, $dni, $ms_personid, $aula]);
 $con = null;
 ?>

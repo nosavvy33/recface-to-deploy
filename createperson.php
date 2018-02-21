@@ -45,7 +45,6 @@
             <tr><td>(Obligatorio) Apellido paterno: </td><td><input type="text" id="alupaterno" required></td></tr>
 <tr><td>(Obligatorio) Apellido materno: </td><td><input type="text" id="alumaterno"></td></tr>
 <tr><td>DNI: </td><td><input type="text" id="aludni"></td></tr>
-<tr><td>(Obligatorio) Contraseña: </td><td><input type="text" id="alupassword" required></td></tr>
 <tr><td colspan="2">Insertar solamente fotos donde se muestre un solo rostro</td></tr>
 <tr><td>Foto: </td><td><input type="file" id="alufoto" name="alufoto"></td></tr>
 <tr><td>Vista previa: </td><td><img id="prevista" src="" style="max-width: 200px; max-height: 200px;"></tr>
@@ -61,6 +60,7 @@
         <a class="btn btn-default" href="listgroups.php">Volver a Tabla Grupos</a>
 </div>
     <script type="text/javascript">
+	const key ="11131afade8d4760865c7db0715c87ee";
         var groupname = location.search.split('group=')[1];
         $("#idgrupo").val(groupname);
         $("#tabla_alumnos").on("click",function(){
@@ -90,7 +90,7 @@ function entrenarGrupo(){
             url: "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/"+groupname+"/train?" + $.param(params),
             beforeSend: function(xhrObj){
                 // Request headers
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "POST"
         })
@@ -138,12 +138,12 @@ $("#alufoto").on("change",function(){
             let db_paterno = $("#alupaterno").val();
             let db_materno = $("#alumaterno").val();
             let db_dni = $("#aludni").val();
-            let db_password = $("#alupassword").val();
+          
             let microsoft_binarios = document.getElementById("alufoto").files[0];
             let db_foto64 = $('#prevista').attr('src');
             
            //alert(microsoft_binarios instanceof Blob);
-            if(db_password == "" || db_nombre == "" || db_paterno == "" || db_materno == ""){
+            if(db_nombre == "" || db_paterno == "" || db_materno == ""){
                 alert("Complete los campos obligatorios");
                 
                 return;
@@ -183,7 +183,7 @@ function mscrearpersona(nombre){
             beforeSend: function(xhrObj){
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "POST",
             // Request body
@@ -228,7 +228,7 @@ function mscrearrostro(binarios){
             beforeSend: function(xhrObj){
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "POST",
             // Request body
@@ -295,9 +295,9 @@ function phpcrearalumno(){
             let db_paterno = $("#alupaterno").val();
             let db_materno = $("#alumaterno").val();
             let db_dni = $("#aludni").val();
-            let db_password = $("#alupassword").val();
-    console.log(db_materno+db_password+db_paterno+db_nombre+db_dni);
-        var dataString = 'aula='+groupname+'&nombre='+db_nombre+'&paterno='+db_paterno+'&materno='+db_materno+'&password='+db_password+'&dni='+db_dni+'&mspersonid='+microsoft_personid;
+           
+    console.log(db_materno+db_paterno+db_nombre+db_dni);
+        var dataString = 'aula='+groupname+'&nombre='+db_nombre+'&paterno='+db_paterno+'&materno='+db_materno+'&dni='+db_dni+'&mspersonid='+microsoft_personid;
         console.log(dataString);
         $.ajax({
             url: "api/alumno/crearalumno.php",

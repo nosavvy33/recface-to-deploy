@@ -33,6 +33,7 @@
 </br></br>
 <a class="btn btn-info" href="listgroups.php">Volver a tabla de Grupos</a></div>
 <script type="text/javascript">
+	const key = "11131afade8d4760865c7db0715c87ee";
         var groupname = "";
     $("#trigger").on("click",function(){
         groupname = $("#salon").val();
@@ -47,7 +48,7 @@
             beforeSend: function(xhrObj){
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "PUT",
             // Request body
@@ -82,7 +83,7 @@
             url: "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/"+groupname+"/train?" + $.param(params),
             beforeSend: function(xhrObj){
                 // Request headers
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "POST"
         })

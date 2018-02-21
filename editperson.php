@@ -38,7 +38,7 @@
             <tr><td>(Obligatorio) Apellido paterno: </td><td><input type="text" id="alupaterno" required></td></tr>
 <tr><td>(Obligatorio) Apellido materno: </td><td><input type="text" id="alumaterno"></td></tr>
 <tr><td>DNI: </td><td><input type="text" id="aludni"></td></tr>
-<tr><td>(Obligatorio) Contraseña: </td><td><input type="text" id="alupassword" required></td></tr>
+
 <tr><td colspan="2">Insertar solamente fotos donde se muestre un solo rostro</td></tr>
 <tr><td>Foto: </td><td><input type="file" id="alufoto" name="alufoto"></td></tr>
 <tr><td>Vista previa: </br><p id="foto-modificada">(Foto antigua)</p></td><td><img id="prevista" src="" style="max-width: 200px; max-height: 200px;"></tr>
@@ -54,6 +54,7 @@
         <a class="btn btn-default" href="listgroups.php">Volver a Tabla Grupos</a>
 </div>
     <script type="text/javascript">
+	const key = "11131afade8d4760865c7db0715c87ee";
         function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -84,7 +85,7 @@
             $("#alupaterno").val(alumno.paterno);
             $("#alumaterno").val(alumno.materno);
             $("#aludni").val(alumno.dni);
-            $("#alupassword").val(alumno.password);
+          
             $("#prevista").attr("src",alumno.foto_64);
         })
         .fail(function() {
@@ -127,8 +128,8 @@
             let db_paterno = $("#alupaterno").val();
             let db_materno = $("#alumaterno").val();
             let db_dni = $("#aludni").val();
-            let db_password = $("#alupassword").val();
-        var dataString = 'aula='+groupname+'&nombre='+db_nombre+'&paterno='+db_paterno+'&materno='+db_materno+'&password='+db_password+'&dni='+db_dni+'&mspersonid='+personid;
+            
+        var dataString = 'aula='+groupname+'&nombre='+db_nombre+'&paterno='+db_paterno+'&materno='+db_materno+'&dni='+db_dni+'&mspersonid='+personid;
         $.ajax({
             url: "api/alumno/actualizaralumno.php",
             processData: true,
@@ -157,7 +158,7 @@ function mseliminarrostro(){
             url: "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/"+groupname+"/persons/"+personid+"/persistedFaces/"+faceid+"?" + $.param(params),
             beforeSend: function(xhrObj){
                 // Request headers
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             async: false,
             type: "DELETE",
@@ -185,7 +186,7 @@ function mseliminarrostro(){
             beforeSend: function(xhrObj){
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","d51f69b3fcb74199aac608a19b165a28");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",key);
             },
             type: "POST",
             // Request body
@@ -202,7 +203,7 @@ function mseliminarrostro(){
         }
 
         $("#formu").on("submit",function(){
-            if($("#alunombre").val() == null ||$("#alunombre").val() == "" ||$("#alupaterno").val() == null||$("#alupaterno").val() == ""||$("#alumaterno").val() == null||$("#alumaterno").val() == ""||$("#alupassword").val()==null||$("#alupassword").val()=="" ){
+            if($("#alunombre").val() == null ||$("#alunombre").val() == "" ||$("#alupaterno").val() == null||$("#alupaterno").val() == ""||$("#alumaterno").val() == null||$("#alumaterno").val() == "" ){
                 alert("Complete los campos obligatorios");
                 return false;
             }else if(document.getElementById("alufoto").files[0]){
